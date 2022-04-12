@@ -3,6 +3,8 @@
 DATE_EXEC="$(date "+%d/%m/%Y %H:%M")"
 TIME_START=`date +%s.%N`
 
+apt-get update -y
+
 ## Khai bao cac ham
 function notify() {
     chatid=-557175523
