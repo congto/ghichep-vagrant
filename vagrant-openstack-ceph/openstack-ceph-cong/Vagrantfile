@@ -9,15 +9,11 @@ PATH_SHELL = "bootstrap_ubuntu14.sh"
 
 Vagrant.configure("2") do |config|
   config.vm.box = BOX_IMAGE
-  config.vm.box_version = "14.04"
-
   config.vm.provision "shell", path: PATH_SHELL
-
   config.ssh.insert_key = false
 	
   # VM CTL01 
   config.vm.define "ctl01" do |ctl01|
-    ctl01.vm.box = BOX_IMAGE
     ctl01.vm.box_check_update  = false
     ctl01.vm.hostname = "ctl01"
     ctl01.vm.network "private_network", ip: "172.16.16.221" #VLAN DATAVM
@@ -36,7 +32,6 @@ Vagrant.configure("2") do |config|
   
   # VM COM01 
   config.vm.define "com01" do |com01|
-    com01.vm.box = BOX_IMAGE
     com01.vm.box_check_update  = false
     com01.vm.hostname = "com01"
     com01.vm.network "private_network", ip: "172.16.16.222" #VLAN DATAVM
@@ -53,7 +48,6 @@ Vagrant.configure("2") do |config|
 
   # VM COM02 
   config.vm.define "com02" do |com02|
-    com02.vm.box = BOX_IMAGE
     com02.vm.box_check_update  = false
     com02.vm.hostname = "com02"
     com02.vm.network "private_network", ip: "172.16.16.223" #VLAN DATAVM
@@ -70,7 +64,6 @@ Vagrant.configure("2") do |config|
 
   # # VM ceph01 
   # config.vm.define "ceph01" do |ceph01|
-    # ceph01.vm.box = BOX_IMAGE
     # ceph01.vm.box_check_update  = false
     # ceph01.vm.hostname = "ceph01"
     # ceph01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.227" #VLAN MGNT
@@ -90,7 +83,6 @@ Vagrant.configure("2") do |config|
   
   # # VM ceph02 
   # config.vm.define "ceph02" do |ceph02|
-    # ceph02.vm.box = BOX_IMAGE
     # ceph02.vm.box_check_update  = false
     # ceph02.vm.hostname = "ceph02"
     # ceph02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.228" #VLAN MGNT
@@ -110,7 +102,6 @@ Vagrant.configure("2") do |config|
 
   # # VM ceph03 
   # config.vm.define "ceph03" do |ceph03|
-    # ceph03.vm.box = BOX_IMAGE
     # ceph03.vm.box_check_update  = false
     # ceph03.vm.hostname = "ceph03"
     # ceph03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.229" #VLAN MGNT

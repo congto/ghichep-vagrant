@@ -67,9 +67,7 @@ sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_
 sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 60/g' /etc/ssh/sshd_config
 sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
-systemctl restart sshd 
-
-systemctl reload sshd
+service ssh restart
 
 # Set Root password
 echo "[TASK 3] Set root password"
@@ -86,17 +84,16 @@ apt-get install chrony -qq -y >/dev/null 2>&1
 ntpfile=/etc/chrony/chrony.conf
 
 timedatectl set-timezone Asia/Ho_Chi_Minh >/dev/null 2>&1
-sed -i 's/pool 2.debian.pool.ntp.org offline iburst/ \
-pool 2.debian.pool.ntp.org offline iburst \
-server 0.asia.pool.ntp.org iburst \
-server 1.asia.pool.ntp.org iburst/g' $ntpfile -qq -y >/dev/null 2>&1
+sed -i 's/server 0.debian.pool.ntp.org offline minpoll 8/ \
+server 1.debian.pool.ntp.org offline minpoll 8 \
+server 2.debian.pool.ntp.org offline minpoll 8 \
+server 3.debian.pool.ntp.org offline minpoll 8/g' $ntpfile -qq -y >/dev/null 2>&1
 
 echo "allow 172.16.70.212/24" >> $ntpfile  >/dev/null 2>&1
 service chrony restart  >/dev/null 2>&1
 
 echo "[TASK 6] Config firewall"
-systemctl disable ufw
-systemctl stop ufw
+service ufw stop 
 
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
