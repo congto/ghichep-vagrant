@@ -57,8 +57,10 @@ sendtelegram "Setup co ban tren node `hostname`"
 echo "[TASK 1]Khai bao repo node `hostname`"
 
 sendtelegram "Khai bao repo node `hostname`"
-repo
+# repo
 
+apt clean
+apt-get update
 # Enable ssh password authentication
 echo "[TASK 2] Enable ssh password authentication"
 sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
